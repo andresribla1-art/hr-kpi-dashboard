@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR KPI Dashboard — Bafing S.A.C.</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 32px; }
+  h1 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #666; margin-bottom: 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
+  .kpi-label { font-size: 12px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-value { font-size: 28px; font-weight: 500; color: #1b3a6b; }
+  .kpi-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
+  .section { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+  .section h2 { font-size: 14px; font-weight: 500; margin-bottom: 16px; color: #333; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-weight: 500; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; padding: 0 8px 10px 0; border-bottom: 1px solid #eee; }
+  td { padding: 10px 8px 10px 0; border-bottom: 1px solid #f0f0f0; color: #444; }
+  tr:last-child td { border-bottom: none; }
+  .bar-wrap { width: 100%; background: #f0f0f0; border-radius: 4px; height: 6px; }
+  .bar { background: #1b3a6b; border-radius: 4px; height: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+  .tag.green { background: #e8f5e9; color: #2e7d32; }
+  .tag.amber { background: #fff8e1; color: #f57f17; }
+  .tag.blue  { background: #e3f2fd; color: #1565c0; }
+  .note { font-size: 11px; color: #bbb; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<h1>HR KPI Dashboard</h1>
+<p class="subtitle">Bafing S.A.C. &nbsp;·&nbsp; Simulated data based on real operational scope &nbsp;·&nbsp; Felix Rios Blanco</p>
+
+<div class="grid">
+  <div class="kpi">
+    <div class="kpi-label">Total staff managed</div>
+    <div class="kpi-value">250+</div>
+    <div class="kpi-sub">5 departments</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Compliance incidents</div>
+    <div class="kpi-value">0</div>
+    <div class="kpi-sub">36 months</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Roles filled (2022–25)</div>
+    <div class="kpi-value">47</div>
+    <div class="kpi-sub">Technical & general</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Avg. time to hire</div>
+    <div class="kpi-value">18d</div>
+    <div class="kpi-sub">All departments</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Retention rate</div>
+    <div class="kpi-value">91%</div>
+    <div class="kpi-sub">12-month avg.</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Training completion</div>
+    <div class="kpi-value">96%</div>
+    <div class="kpi-sub">ISO audit cycles</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Departmental KPI compliance — Power BI tracking scope</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Department</th>
+        <th>KPI target</th>
+        <th>Compliance</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SOC — Security Operations</td>
+        <td>Response time &lt; 4h</td>
+        <td>98%</td>
+        <td><span class="tag green">On track</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:98%"></div></div></td>
+      </tr>
+      <tr>
+        <td>NOC — Network Operations</td>
+        <td>Uptime &gt; 99.5%</td>
+        <td>99.7%</td>
+        <td><span class="tag green">On track</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:99%"></div></div></td>
+      </tr>
+      <tr>
+        <td>HR & Administration</td>
+        <td>Payroll accuracy</td>
+        <td>100%</td>
+        <td><span class="tag green">On track</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:100%"></div></div></td>
+      </tr>
+      <tr>
+        <td>Project Delivery</td>
+        <td>Milestone adherence</td>
+        <td>84%</td>
+        <td><span class="tag amber">Monitor</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:84%"></div></div></td>
+      </tr>
+      <tr>
+        <td>ISO Compliance</td>
+        <td>Audit readiness</td>
+        <td>100%</td>
+        <td><span class="tag green">On track</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:100%"></div></div></td>
+      </tr>
+      <tr>
+        <td>Training & Development</td>
+        <td>Completion rate</td>
+        <td>96%</td>
+        <td><span class="tag green">On track</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:96%"></div></div></td>
+      </tr>
+      <tr>
+        <td>Recruitment Pipeline</td>
+        <td>Time-to-fill &lt; 21d</td>
+        <td>79%</td>
+        <td><span class="tag amber">Monitor</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:79%"></div></div></td>
+      </tr>
+      <tr>
+        <td>Workforce Planning</td>
+        <td>Headcount accuracy</td>
+        <td>93%</td>
+        <td><span class="tag green">On track</span></td>
+        <td><div class="bar-wrap"><div class="bar" style="width:93%"></div></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>Recruitment activity — hospital infrastructure projects (2022–2025)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Roles filled</th>
+        <th>Profile type</th>
+        <th>Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sullana II-2 Support Hospital</td>
+        <td>14</td>
+        <td><span class="tag blue">Engineering</span></td>
+        <td>On-time delivery</td>
+      </tr>
+      <tr>
+        <td>Hospital project 2</td>
+        <td>11</td>
+        <td><span class="tag blue">Engineering + Labour</span></td>
+        <td>On-time delivery</td>
+      </tr>
+      <tr>
+        <td>Hospital project 3</td>
+        <td>9</td>
+        <td><span class="tag blue">Labour</span></td>
+        <td>On-time delivery</td>
+      </tr>
+      <tr>
+        <td>Hospital project 4</td>
+        <td>13</td>
+        <td><span class="tag blue">Engineering + Labour</span></td>
+        <td>On-time delivery</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="note">Data is simulated based on real operational scope at Bafing S.A.C. (2021–2025). Built by Felix Rios Blanco · github.com/andresribla1-art</p>
+
+</body>
+</html>
