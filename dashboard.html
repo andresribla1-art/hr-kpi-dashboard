@@ -3,184 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR KPI Dashboard — Bafing S.A.C.</title>
+<title>HR Operations Dashboard — Felix Rios Blanco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 32px; }
-  h1 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
-  .subtitle { font-size: 13px; color: #666; margin-bottom: 28px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
-  .kpi { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
-  .kpi-label { font-size: 12px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .kpi-value { font-size: 28px; font-weight: 500; color: #1b3a6b; }
-  .kpi-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
-  .section { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; margin-bottom: 20px; }
-  .section h2 { font-size: 14px; font-weight: 500; margin-bottom: 16px; color: #333; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; font-weight: 500; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; padding: 0 8px 10px 0; border-bottom: 1px solid #eee; }
-  td { padding: 10px 8px 10px 0; border-bottom: 1px solid #f0f0f0; color: #444; }
-  tr:last-child td { border-bottom: none; }
-  .bar-wrap { width: 100%; background: #f0f0f0; border-radius: 4px; height: 6px; }
-  .bar { background: #1b3a6b; border-radius: 4px; height: 6px; }
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
-  .tag.green { background: #e8f5e9; color: #2e7d32; }
-  .tag.amber { background: #fff8e1; color: #f57f17; }
-  .tag.blue  { background: #e3f2fd; color: #1565c0; }
-  .note { font-size: 11px; color: #bbb; margin-top: 24px; }
+:root {
+  --black:   #0a0a0a;
+  --grey-1:  #1c1c1e;
+  --grey-2:  #3a3a3c;
+  --grey-3:  #636366;
+  --grey-4:  #aeaeb2;
+  --grey-5:  #d1d1d6;
+  --grey-6:  #f2f2f7;
+  --white:   #ffffff;
+  --blue:    #0a2463;
+  --blue-lt: #e8edf8;
+  --green:   #1c4a2e;
+  --green-lt:#e6f2ea;
+  --amber:   #7a4a00;
+  --amber-lt:#fdf0dc;
+  --rule:    #e5e5ea;
+  --f-body:  'Figtree', sans-serif;
+  --f-mono:  'Space Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--f-body);
+  background: var(--white);
+  color: var(--black);
+  padding: 56px 48px 72px;
+  max-width: 1060px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--black);
+  margin-bottom: 48px;
+}
+.h-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--grey-3);
+  margin-bottom: 10px;
+}
+.h-title {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: -1.2px;
+  color: var(--black);
+  line-height: 1.1;
+}
+.h-title strong {
+  font-weight: 600;
+}
+.h-meta {
+  text-align: right;
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  line-height: 2;
+  color: var(--grey-3);
+}
+.h-meta b {
+  color: var(--grey-2);
+  font-weight: 700;
+}
+
+/* ── KPI STRIP ── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  border: 1px solid var(--rule);
+  margin-bottom: 40px;
+}
+.kpi-cell {
+  padding: 24px 20px 20px;
+  border-right: 1px solid var(--rule);
+}
+.kpi-cell:last-child { border-right: none; }
+.kpi-cell:first-child { border-left: 3px solid var(--blue); }
+.k-eye {
+  font-family: var(--f-mono);
+  font-size: 8.5px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--grey-4);
+  margin-bottom: 12px;
+}
+.k-val {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: var(--black);
+}
+.k-val sup {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  vertical-align: super;
+  color: var(--grey-2);
+}
+.k-sub {
+  font-size: 10.5px;
+  color: var(--grey-4);
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+/* ── LAYOUT ── */
+.row-2 {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.panel {
+  border: 1px solid var(--rule);
+}
+.panel-full {
+  border: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+.p-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--grey-6);
+}
+.p-title {
+  font-family: var(--f-mono);
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-2);
+  font-weight: 700;
+}
+.p-sub {
+  font-family: var(--f-mono);
+  font-size: 8.5px;
+  color: var(--grey-4);
+}
+
+/* ── KPI TABLE ── */
+.t { width: 100%; border-collapse: collapse; }
+.t tr { border-bottom: 1px solid var(--rule); }
+.t tr:last-child { border-bottom: none; }
+.t td {
+  padding: 10px 20px;
+  font-size: 12px;
+  color: var(--grey-2);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.t td:first-child {
+  color: var(--black);
+  font-weight: 400;
+  white-space: normal;
+  width: 38%;
+}
+.t td.mono {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--grey-3);
+}
+.t td.num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grey-2);
+  width: 40px;
+}
+.track {
+  display: inline-block;
+  width: 52px;
+  height: 3px;
+  background: var(--rule);
+  border-radius: 0;
+  vertical-align: middle;
+}
+.fill {
+  display: block;
+  height: 3px;
+  background: var(--blue);
+}
+.fill.a { background: var(--amber); }
+
+/* ── STATUS ── */
+.st {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 3px 6px;
+}
+.st-ok  { background: var(--green-lt); color: var(--green); }
+.st-mon { background: var(--amber-lt); color: var(--amber); }
+.st-blu { background: var(--blue-lt);  color: var(--blue);  }
+.st-gray{ background: var(--grey-6);   color: var(--grey-3);}
+
+/* ── PROJECTS ── */
+.proj-wrap { padding: 0 20px; }
+.proj {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.proj:last-child { border-bottom: none; }
+.proj-name { font-size: 12px; font-weight: 500; color: var(--black); margin-bottom: 2px; letter-spacing: -0.1px; }
+.proj-desc { font-size: 11px; color: var(--grey-3); font-weight: 300; }
+
+/* ── TENDER DOCS ── */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+.doc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 20px;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  gap: 8px;
+}
+.doc:nth-child(3n) { border-right: none; }
+.doc:nth-last-child(-n+3) { border-bottom: none; }
+.doc-name { font-size: 11.5px; color: var(--grey-2); font-weight: 400; }
+.doc-ok {
+  font-family: var(--f-mono);
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-lt);
+  padding: 3px 6px;
+  white-space: nowrap;
+}
+
+/* ── FOOTER ── */
+footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+}
+footer .f-l, footer .f-r {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: var(--grey-4);
+  line-height: 2;
+}
+footer .f-r { text-align: right; }
+
+/* ── ENTER ── */
+@keyframes up {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+header       { animation: up .45s ease both; }
+.kpi-strip   { animation: up .45s .08s ease both; }
+.panel,
+.panel-full  { animation: up .45s .14s ease both; }
 </style>
 </head>
 <body>
 
-<h1>HR KPI Dashboard</h1>
-<p class="subtitle">Bafing S.A.C. &nbsp;·&nbsp; Simulated data based on real operational scope &nbsp;·&nbsp; Felix Rios Blanco</p>
+<header>
+  <div>
+    <div class="h-eyebrow">HR Operations · Executive Dashboard</div>
+    <div class="h-title"><strong>Bafing</strong> S.A.C.<br>Operations Overview</div>
+  </div>
+  <div class="h-meta">
+    <b>Felix Andres Rios Blanco</b><br>
+    HR Lead &amp; Operations Director<br>
+    Lima, Peru &nbsp;·&nbsp; Jan 2022 – Mar 2025<br>
+    Simulated data · Real operational scope
+  </div>
+</header>
 
-<div class="grid">
-  <div class="kpi">
-    <div class="kpi-label">Total staff managed</div>
-    <div class="kpi-value">150+</div>
-    <div class="kpi-sub">5 departments</div>
+<div class="kpi-strip">
+  <div class="kpi-cell">
+    <div class="k-eye">Staff managed</div>
+    <div class="k-val">150</div>
+    <div class="k-sub">5 departments</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-label">Compliance incidents</div>
-    <div class="kpi-value">0</div>
-    <div class="kpi-sub">36 months</div>
+  <div class="kpi-cell">
+    <div class="k-eye">Compliance incidents</div>
+    <div class="k-val">0</div>
+    <div class="k-sub">36 months</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-label">Roles filled (2022–25)</div>
-    <div class="kpi-value">47</div>
-    <div class="kpi-sub">Technical & general</div>
+  <div class="kpi-cell">
+    <div class="k-eye">Projects managed</div>
+    <div class="k-val">6</div>
+    <div class="k-sub">Public procurement</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-label">Avg. time to hire</div>
-    <div class="kpi-value">18d</div>
-    <div class="kpi-sub">All departments</div>
+  <div class="kpi-cell">
+    <div class="k-eye">Roles filled</div>
+    <div class="k-val">47</div>
+    <div class="k-sub">Technical &amp; general</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-label">Retention rate</div>
-    <div class="kpi-value">91%</div>
-    <div class="kpi-sub">12-month avg.</div>
+  <div class="kpi-cell">
+    <div class="k-eye">Avg. time to hire</div>
+    <div class="k-val">18<sup>d</sup></div>
+    <div class="k-sub">All departments</div>
   </div>
-  <div class="kpi">
-    <div class="kpi-label">Training completion</div>
-    <div class="kpi-value">96%</div>
-    <div class="kpi-sub">ISO audit cycles</div>
+  <div class="kpi-cell">
+    <div class="k-eye">Training completion</div>
+    <div class="k-val">96<sup>%</sup></div>
+    <div class="k-sub">ISO audit cycles</div>
   </div>
 </div>
 
-<div class="section">
-  <h2>Departmental KPI compliance — Power BI tracking scope</h2>
-  <table>
-    <thead>
+<div class="row-2">
+  <div class="panel">
+    <div class="p-head">
+      <span class="p-title">Departmental KPI Compliance</span>
+      <span class="p-sub">8 areas · Power BI scope</span>
+    </div>
+    <table class="t">
       <tr>
-        <th>Department</th>
-        <th>KPI target</th>
-        <th>Compliance</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>SOC — Security Operations Center</td>
-        <td>Response time &lt; 4h</td>
-        <td>98%</td>
-        <td><span class="tag green">On track</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:98%"></div></div></td>
+        <td>SOC — Security Operations</td>
+        <td class="mono">Response &lt; 4h</td>
+        <td class="num">98%</td>
+        <td><div class="track"><div class="fill" style="width:98%"></div></div></td>
+        <td><span class="st st-ok">OK</span></td>
       </tr>
       <tr>
-        <td>NOC — Network Operations Center</td>
-        <td>Uptime &gt; 99.5%</td>
-        <td>99.7%</td>
-        <td><span class="tag green">On track</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:99%"></div></div></td>
+        <td>NOC — Network Operations</td>
+        <td class="mono">Uptime &gt;99.5%</td>
+        <td class="num">99.7%</td>
+        <td><div class="track"><div class="fill" style="width:99%"></div></div></td>
+        <td><span class="st st-ok">OK</span></td>
       </tr>
       <tr>
-        <td>HR & Administration</td>
-        <td>Payroll accuracy</td>
-        <td>100%</td>
-        <td><span class="tag green">On track</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:100%"></div></div></td>
+        <td>HR &amp; Administration</td>
+        <td class="mono">Payroll accuracy</td>
+        <td class="num">100%</td>
+        <td><div class="track"><div class="fill" style="width:100%"></div></div></td>
+        <td><span class="st st-ok">OK</span></td>
       </tr>
       <tr>
         <td>Project Delivery</td>
-        <td>Milestone adherence</td>
-        <td>84%</td>
-        <td><span class="tag amber">Monitor</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:84%"></div></div></td>
+        <td class="mono">Milestone adh.</td>
+        <td class="num">84%</td>
+        <td><div class="track"><div class="fill a" style="width:84%"></div></div></td>
+        <td><span class="st st-mon">Mon.</span></td>
       </tr>
       <tr>
         <td>ISO Compliance</td>
-        <td>Audit readiness</td>
-        <td>100%</td>
-        <td><span class="tag green">On track</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:100%"></div></div></td>
+        <td class="mono">Audit readiness</td>
+        <td class="num">100%</td>
+        <td><div class="track"><div class="fill" style="width:100%"></div></div></td>
+        <td><span class="st st-ok">OK</span></td>
       </tr>
       <tr>
-        <td>Training & Development</td>
-        <td>Completion rate</td>
-        <td>96%</td>
-        <td><span class="tag green">On track</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:96%"></div></div></td>
+        <td>Training &amp; Development</td>
+        <td class="mono">Completion rate</td>
+        <td class="num">96%</td>
+        <td><div class="track"><div class="fill" style="width:96%"></div></div></td>
+        <td><span class="st st-ok">OK</span></td>
       </tr>
       <tr>
         <td>Recruitment Pipeline</td>
-        <td>Time-to-fill &lt; 21d</td>
-        <td>79%</td>
-        <td><span class="tag amber">Monitor</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:79%"></div></div></td>
+        <td class="mono">TTF &lt; 21d</td>
+        <td class="num">79%</td>
+        <td><div class="track"><div class="fill a" style="width:79%"></div></div></td>
+        <td><span class="st st-mon">Mon.</span></td>
       </tr>
       <tr>
         <td>Workforce Planning</td>
-        <td>Headcount accuracy</td>
-        <td>93%</td>
-        <td><span class="tag green">On track</span></td>
-        <td><div class="bar-wrap"><div class="bar" style="width:93%"></div></div></td>
+        <td class="mono">HC accuracy</td>
+        <td class="num">93%</td>
+        <td><div class="track"><div class="fill" style="width:93%"></div></div></td>
+        <td><span class="st st-ok">OK</span></td>
       </tr>
-    </tbody>
-  </table>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="p-head">
+      <span class="p-title">Infrastructure Projects</span>
+      <span class="p-sub">6 public · All approved</span>
+    </div>
+    <div class="proj-wrap">
+      <div class="proj">
+        <div>
+          <div class="proj-name">Hospital de Apoyo Caraz — Ancash</div>
+          <div class="proj-desc">Mejoramiento y ampliación de servicios de salud</div>
+        </div>
+        <span class="st st-blu">Hospital</span>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name">Hospital Cangallo — Ayacucho</div>
+          <div class="proj-desc">Mejoramiento de capacidad resolutiva</div>
+        </div>
+        <span class="st st-blu">Hospital</span>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name">Torre Hospitalaria San Borja (THSSB)</div>
+          <div class="proj-desc">TIC &amp; security systems · Clínica Internacional</div>
+        </div>
+        <span class="st st-gray">TIC</span>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name">Sullana II-2 Support Hospital — Piura</div>
+          <div class="proj-desc">IT &amp; communications infrastructure</div>
+        </div>
+        <span class="st st-gray">IT Infra</span>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name">C.S. Castilla — IT Asset Management</div>
+          <div class="proj-desc">Implementación sistema de gestión de activos TIC</div>
+        </div>
+        <span class="st st-gray">IT System</span>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name">C.S. San Miguel de El Faique</div>
+          <div class="proj-desc">Implementación sistema de gestión de activos TIC</div>
+        </div>
+        <span class="st st-gray">IT System</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="section">
-  <h2>Recruitment activity — hospital infrastructure projects (2022–2025)</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Project</th>
-        <th>Roles filled</th>
-        <th>Profile type</th>
-        <th>Outcome</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Sullana II-2 Support Hospital</td>
-        <td>14</td>
-        <td><span class="tag blue">Engineering</span></td>
-        <td>On-time delivery</td>
-      </tr>
-      <tr>
-        <td>Hospital project 2</td>
-        <td>11</td>
-        <td><span class="tag blue">Engineering + Labour</span></td>
-        <td>On-time delivery</td>
-      </tr>
-      <tr>
-        <td>Hospital project 3</td>
-        <td>9</td>
-        <td><span class="tag blue">Labour</span></td>
-        <td>On-time delivery</td>
-      </tr>
-      <tr>
-        <td>Hospital project 4</td>
-        <td>13</td>
-        <td><span class="tag blue">Engineering + Labour</span></td>
-        <td>On-time delivery</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="panel-full">
+  <div class="p-head">
+    <span class="p-title">Tender Documentation</span>
+    <span class="p-sub">9 document types · All submissions approved · Public procurement (TDR / SEACE)</span>
+  </div>
+  <div class="doc-grid">
+    <div class="doc"><span class="doc-name">Work plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">HSE plan (Plan de SST)</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Topographic plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Emergency response plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Traffic management plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Waste handling plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Quality plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Environmental management plan</span><span class="doc-ok">✓ Approved</span></div>
+    <div class="doc"><span class="doc-name">Contingency plan</span><span class="doc-ok">✓ Approved</span></div>
+  </div>
 </div>
 
-<p class="note">Data is simulated based on real operational scope at Bafing S.A.C. (2021–2025). Built by Felix Rios Blanco · github.com/andresribla1-art</p>
+<footer>
+  <div class="f-l">
+    Bafing S.A.C. · Lima, Peru · 2021–2025<br>
+    Data simulated from real operational scope
+  </div>
+  <div class="f-r">
+    Felix Andres Rios Blanco<br>
+    github.com/andresribla1-art · linkedin.com/in/frios05
+  </div>
+</footer>
 
 </body>
 </html>
